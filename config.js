@@ -14,7 +14,7 @@ var Configurator = function (file) {
       if (err) { throw err; }
       old_config = self.config;
 
-      self.config = process.compile('config = ' + data, file);
+      self.config = require('vm').runInThisContext('config = ' + data, file);
       self.emit('configChanged', self.config);
     });
   };
