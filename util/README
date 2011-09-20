@@ -1,0 +1,14 @@
+statsd.conf is an upstart script. 
+If you use upstart, put this file in /etc/init/
+
+
+You can then start statsd like this:
+
+    sudo start statsd
+
+
+
+... and stop it like this:
+    
+    sudo stop statsd
+
