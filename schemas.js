@@ -29,7 +29,7 @@ exports.Schemanator = Schemanator;
 
 exports.schemaFile = function(file, callbackFunc) {
     var schemas = new Schemanator(file);
-    config.on('configChanged', function() {
+    schemas.on('schemasChanged', function() {
         callbackFunc(schemas.schemas);
     });
 };
