@@ -1,6 +1,13 @@
 // This file defines how often to flush different stats.
 // It's analagous to Graphite's storage-schemas.conf
 //
+// Stats that do not match a schema in this file
+// will *not* be flushed to Graphite.
+//
+// When stats are compared to these patterns,
+// they do *not* have <config.prefix> at the beginning.
+//
+//
 // This example is modeled after this storage-schemas.conf:
 //
 // [etsy-style]

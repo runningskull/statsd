@@ -1,5 +1,6 @@
 statsd.conf is an upstart script. 
-If you use upstart, put this file in /etc/init/
+If you use upstart, change instances of "/path/to/" to your actual paths,
+then put the file in /etc/init/
 
 
 You can then start statsd like this:
