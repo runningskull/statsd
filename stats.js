@@ -124,11 +124,11 @@ config.configFile(process.argv[2], function (config, oldConfig) {
               timers[key] = [];
 
               var message = "";
-              message += 'stats.timers.' + key + '.mean ' + mean + ' ' + ts + "\n";
-              message += 'stats.timers.' + key + '.upper ' + max + ' ' + ts + "\n";
-              message += 'stats.timers.' + key + '.upper_' + pctThreshold + ' ' + maxAtThreshold + ' ' + ts + "\n";
-              message += 'stats.timers.' + key + '.lower ' + min + ' ' + ts + "\n";
-              message += 'stats.timers.' + key + '.count ' + count + ' ' + ts + "\n";
+              message += prefix + 'timers.' + key + '.mean ' + mean + ' ' + ts + "\n";
+              message += prefix + 'timers.' + key + '.upper ' + max + ' ' + ts + "\n";
+              message += prefix + 'timers.' + key + '.upper_' + pctThreshold + ' ' + maxAtThreshold + ' ' + ts + "\n";
+              message += prefix + 'timers.' + key + '.lower ' + min + ' ' + ts + "\n";
+              message += prefix + 'timers.' + key + '.count ' + count + ' ' + ts + "\n";
               statString += message;
 
               numStats += 1;
