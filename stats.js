@@ -62,9 +62,13 @@ config.configFile(process.argv[2], function (config, oldConfig) {
 
     schemas.schemaFile(process.argv[3], function (schemas) {
       for (var k in schemas) {
-        if (! schemas[k].pattern) { return; }
+        if (! schemas[k].pattern) { continue; }
         var flushPattern = schemas[k].pattern;
         var flushInterval = Number(schemas[k].interval || 10000);
+        var prefix = config.prefix===undefined ? 'stats_count.' : config.prefix;
+        if ((!! prefix.length) && (prefix[prefix.length-1] != '.')) {
+          prefix += '.';
+        }
 
         flushInt = setInterval((function (pattern) {return function () {
           var statString = '';
@@ -72,18 +76,16 @@ config.configFile(process.argv[2], function (config, oldConfig) {
           var numStats = 0;
           var key;
 
+
           for (key in counters) {
-            if (! pattern.test(key)) { continue; }
+            if (! pattern.test(key.replace(prefix, ''))) { continue; }
             if (config.debug) {
                 sys.log(key + " matches " + pattern + " --- flushing!");
             }
 
             var value = counters[key];
-            var prefix = config.prefix===undefined ? 'stats_count.' : config.prefix;
-            if ((!! prefix.length) && (prefix[prefix.length-1] != '.')) {
-                prefix += '.';
-            }
             var message = prefix + key + ' ' + value + ' ' + ts + "\n";
+            if (config.debug) { sys.log(message) }
             statString += message;
             counters[key] = 0;
 
@@ -91,7 +93,7 @@ config.configFile(process.argv[2], function (config, oldConfig) {
           }
 
           for (key in timers) {
-            if (! pattern.test(key)) { continue; }
+            if (! pattern.test(key.replace(prefix, ''))) { continue; }
             if (config.debug) {
                 sys.log("timer " + key + " matches " + pattern + " --- flushing!");
             }
